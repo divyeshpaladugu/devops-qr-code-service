@@ -1,41 +1,25 @@
-DEVOPS-QR-CODE-SERVICE
-OVERVIEW
-A full-stack QR code generation service using FastAPI (Python) and Next.js. Users submit a URL and the backend generates a PNG QR code, uploads it to S3, and returns the public link. The Next.js frontend allows instant preview and download.
+# QR Code Generator Service
+A full-stack service that turns any URL into a PNG QR code, stores it on AWS S3, and returns a shareable link.
+The project pairs a FastAPI backend with a React (Next.js) frontend, all containerised with Docker and delivered through a GitHub Actions CI/CD pipeline.
 
-FEATURES
-On-demand QR code creation
+---
 
-S3 storage with public access
+## Features
+FastAPI endpoint accepts a URL, generates a QR image, and uploads it to S3
 
-Dockerized backend and frontend
+Next.js UI lets users enter a link and instantly preview / download the code
 
-CI/CD pipeline via GitHub Actions to build and publish Docker images
+Environment-driven AWS credentials and region; public access handled by bucket policy
 
-PREREQUISITES
-Node.js ≥16 & npm
+GitHub Actions workflow builds backend + frontend images and pushes to Docker Hub on every push to main
 
-Python 3.13 & pip
+---
 
-Docker Desktop
+## Tech Stack
+Frontend: React (Next.js), Axios, Tailwind CSS
 
-AWS credentials and region in a .env file
+Backend: Python 3.13, FastAPI, Uvicorn, qrcode, boto3
 
-INSTALLATION
-git clone https://github.com/divyeshpaladugu/devops-qr-code-service.git
-cd devops-qr-code-service/api
-pip install --pre -r requirements.txt
-cd ../front-end-nextjs
-npm install
+Cloud / Storage: AWS S3, IAM, public bucket policy
 
-USAGE
-Backend:
-cd api
-uvicorn main:app --reload
-
-Frontend:
-cd ../front-end-nextjs
-npm run dev
-Open http://localhost:3000 to generate QR codes.
-
-CI/CD
-On every push to main, GitHub Actions builds Docker images for api and front-end-nextjs, tags them under divyeshpaladugu/, and pushes to Docker Hub.
+DevOps: Docker, Docker Hub, GitHub Actions CI/CD
